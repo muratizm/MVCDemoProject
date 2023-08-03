@@ -1,0 +1,100 @@
+﻿@{
+    ViewData["Title"] = "Profile";
+}
+
+<div class="row">
+    <div class="col-4 offset-4">
+        <h1 class=" display-4 border-bottom text-center pb-2"> @ViewData["Title"] Settings </h1>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12 offset-6">
+            <div class="mb-4">
+                <div asp-validation-summary="All" class="text-danger small"></div>
+            </div>
+        </div>
+        <div class="col-6">
+            <form method="post" asp-action="ProfileChangeImage" enctype="multipart/form-data">
+                <div class="text-center mb-3">
+                    <img src="/uploads/@ViewData["ProfileImage"]" class="img-thumbnail rounded-circle" width="200" height="90" />
+                </div>
+                <div class="form-group mb-3">
+                    <label class="form-label small">Profile Image</label>
+                    <div class="small">
+                        <i class="fa fa-info-circle me-2"></i>Yakisikli bi foto koy
+
+                    </div>
+                    <input type="file" name="file" class="form-control form-container bg-black" />
+                <div class="text-center mt-3">
+                    <button class="btn btn-secondary" type="submit"><i class="fa-solid fa-floppy-disk me-4"></i>Save</button>
+                </div>
+                </div>
+            </form>
+
+        </div>
+        <div class="col-6">
+            <div>
+                <p>
+                    This is your profile page. You can edit your profile as how you want it to be :)
+                </p>
+            </div>
+
+            
+            <form method="post"  asp-action="ProfileChangeFullName">
+                <div class="form-group">
+                    <label class="form-label small">Name Surname </</label>
+                <div class="input-group mb-3">
+                        <input name="fullname" type="text" class="form-control form-container" placeholder="Murat Beder" value="@ViewData["FullName"]"/>
+                    <button class="btn btn-secondary" type="submit" ><i class="fa-solid fa-floppy-disk me-2"></i>Save</button>
+                    </div>
+                </div>
+            </form>
+            <form method="post" asp-action="ProfileChangePassword">
+                <div class="form-group">
+                    <label class="form-label small">New Password </</label>
+                    <div class="input-group">
+                        <input name="password" type="password" class="form-control form-container" placeholder="P@ssw0rd!" />
+                        <button class="btn btn-secondary" type="submit"><i class="fa-solid fa-floppy-disk me-2"></i>Save</button>
+                    </div>
+                </div>
+                @if(ViewData["result"] != null && ViewData["result"] == "PasswordChanged")
+                {
+                    <span class="text-success small">Password updated.</span>
+                }
+            </form>
+        </div>
+    </div>
+
+@section Scripts{
+        @if (ViewData["result"] != null && ViewData["result"] == "PasswordChanged")
+        {
+            <script>
+                toastr["success"]("Password updated." , "Success!")
+                </script>
+        }
+}<style>
+    /* CSS kodlarını buraya yazın */
+         /* styles.css */
+
+         .form-container {
+             padding: 10px;
+             background-color: #000;
+             color: #fff;
+             border-width: 2px;
+             border-style: solid;
+             border-image: linear-gradient(45deg, red, white);
+             border-image-slice: 1;
+         }
+
+
+    .layouter {
+        border: 1px solid;
+        border-image: linear-gradient(45deg, transparent, transparent), linear-gradient(45deg, red, white);
+        border-image-slice: 1;
+        padding: 10px;
+        background-color: #100e0e;
+        color: #fff;
+        border-radius: 10px;
+    }
+
+</style>
